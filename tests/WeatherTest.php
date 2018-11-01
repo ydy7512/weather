@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the ydy7512/weather.
+ *
+ * (c) ydy7512 <972404058@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Ydy7512\Weather\Tests;
 
 use GuzzleHttp\Client;
@@ -13,8 +22,6 @@ use Ydy7512\Weather\Weather;
 
 class WeatherTest extends TestCase
 {
-
-
     public function testGetWeatherWithInvalidType()
     {
         $w = new Weather('mock-key');
@@ -50,9 +57,9 @@ class WeatherTest extends TestCase
 
         $client->allows()->get('https://restapi.amap.com/v3/weather/weatherInfo', [
             'query' => [
-                'key'        => 'mock-key',
-                'city'       => '厦门',
-                'output'     => 'json',
+                'key' => 'mock-key',
+                'city' => '厦门',
+                'output' => 'json',
                 'extensions' => 'base',
             ],
         ])->andReturn($response);
@@ -67,10 +74,10 @@ class WeatherTest extends TestCase
         $client = \Mockery::mock(Client::class);
         $client->allows()->get('https://restapi.amap.com/v3/weather/weatherInfo', [
             'query' => [
-                'key'        => 'mock-key',
-                'city'       => '深圳',
+                'key' => 'mock-key',
+                'city' => '深圳',
                 'extensions' => 'all',
-                'output'     => 'xml',
+                'output' => 'xml',
             ],
         ])->andReturn($response);
 
