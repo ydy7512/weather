@@ -57,12 +57,12 @@ class WeatherTest extends TestCase
             ],
         ])->andReturn($response);
 
-        // xml
         $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
         $w->allows()->getHttpClient()->andReturn($client);
 
         $this->assertSame(['success' => true], $w->getWeather('厦门'));
 
+        // xml
         $response = new Response(200, [], '<hello>content</hello>');
         $client = \Mockery::mock(Client::class);
         $client->allows()->get('https://restapi.amap.com/v3/weather/weatherInfo', [
@@ -78,6 +78,22 @@ class WeatherTest extends TestCase
         $w->allows()->getHttpClient()->andReturn($client);
 
         $this->assertSame('<hello>content</hello>', $w->getWeather('深圳', 'all', 'xml'));
+    }
+
+    public function testGetLiveWeather()
+    {
+        $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
+        $w->expects()->getWeather('厦门', 'base', 'json')->andReturn(['success' => true]);
+
+        $this->assertSame(['success' => true], $w->getLiveWeather('厦门'));
+    }
+
+    public function testGetForecastsWeather()
+    {
+        $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
+        $w->expects()->getWeather('厦门', 'all', 'json')->andReturn(['success' => true]);
+
+        $this->assertSame(['success' => true], $w->getForecastsWeather('厦门'));
     }
 
     public function testGetWeatherWithGuzzleRuntimeException()
