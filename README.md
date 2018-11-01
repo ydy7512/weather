@@ -1,4 +1,4 @@
-<h1>Weather</h1>
+<h1 align="center">Weather</h1>
 
 <p align="center">基于 [高德开放平台](https://lbs.amap.com/dev/id/newuser) 的 PHP 天气信息组件。</p>
 
